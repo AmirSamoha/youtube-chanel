@@ -19,12 +19,12 @@ const VideoCard = ({
   //console.log(videoId, snippet);
 
   return (
-    <Card sx={{ width: { xs: "100%",sm: '358px', md: "300px" }, boxShadow: "none" }}>
+    <Card sx={{ width: { xs: "320px",sm: '358px', md: "320px" }, boxShadow: "none" }}>
       <Link to={videoId ? `/video/${videoId}` : demoVideoUrl}>
         <CardMedia
           image={snippet?.thumbnails?.high?.url || demoThumbnailUrl}
           alt={snippet?.title}
-          sx={{ width: { xs: "100%", sm: "358px",md: "300px" }, height: "180px" }}
+          sx={{ width: { xs: "320px", sm: "358px",md: "320px" }, height: "180px" }}
         />
       </Link>
 
