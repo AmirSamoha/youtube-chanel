@@ -1,14 +1,16 @@
 import { useState, useEffect } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import ReactPlayer from "react-player";
 import { Box, Typography, Stack } from "@mui/material";
 import { CheckCircle } from "@mui/icons-material";
 
 import Videos from "./Videos";
 import { fetchFromAPI } from "../utils/fetchFromAPI";
+import { demoVideoUrl } from "../utils/constants";
 
 const VideoDetail = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
 
   const [videoDetail, setVideoDetail] = useState();
   const [videos, setVideos] = useState();
@@ -23,6 +25,9 @@ const VideoDetail = () => {
     );
   }, [id]);
 
+  console.log(videoDetail);
+  console.log(videos);
+
   if (!videoDetail?.snippet) return "Loading...";
 
   return (
@@ -33,7 +38,17 @@ const VideoDetail = () => {
             <ReactPlayer
               url={`https://www.youtube.com/watch?v=${id}`}
               className="react-player"
-              controls
+              controls={true}
+              playing={true} // Set 'playing' prop to 'true' for auto-play
+              onEnded={() => { //when the song end navigate to the next song
+                console.log("The video has ended.");
+                console.log(videos[0].id.videoId);
+                navigate(
+                  videos[0].id.videoId
+                    ? `/video/${videos[0].id.videoId}`
+                    : demoVideoUrl
+                );
+              }}
             />
             <Typography color="white" variant="h5" p={2}>
               {videoDetail?.snippet?.title}
